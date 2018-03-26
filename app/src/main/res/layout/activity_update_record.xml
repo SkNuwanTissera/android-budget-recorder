@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.sliit.budgetcalculator.AddRecordActivity">
+
+
+    <TextView
+        android:id="@+id/titleUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update IE"
+        android:textAlignment="center" />
+    <RadioGroup
+        android:id="@+id/radioTypeUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/incomeRadioBtnUpdate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Income"
+            tools:text="Income" />
+
+        <RadioButton
+            android:id="@+id/expenseRadioBtnUpdate"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Expense"
+            tools:text="Expense" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/IE_Amount_Update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Amount" />
+
+    <EditText
+        android:id="@+id/IE_Desp_Update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Description" />
+
+    <EditText
+        android:id="@+id/IE_Date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="date" />
+
+    <Button
+        android:id="@+id/updateUserButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update"/>
+
+</LinearLayout>
