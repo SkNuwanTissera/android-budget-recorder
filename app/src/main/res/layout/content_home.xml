@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,11 @@
     tools:context="com.sliit.budgetcalculator.Home"
     tools:showIn="@layout/app_bar_home">
 
-</android.support.constraint.ConstraintLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:paddingTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+</RelativeLayout>

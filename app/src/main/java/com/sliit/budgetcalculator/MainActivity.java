@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private IEAdapter adapter;
     private String filter = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

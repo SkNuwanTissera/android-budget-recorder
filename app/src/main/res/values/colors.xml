@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="colorPrimary">#663399</color>
+    <color name="colorPrimaryDark">#663399</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorFontPanel">#ECF0F1</color>
+
+
+
+    <!-- cs colours -->
+    <color name="colorBackPanel">#f4f5f9</color>
+    <color name="colorFontPanel">#ffff</color>
+    <color name="colorBackground">#2C3E50</color>
+
+    <!-- alpha colors -->
+    <color name="colorFontPanelAlpha">#d9ffffff</color>
+
+    <!-- banner colors -->
+    <color name="colorGeneralBanner">#003366</color>
+    <!-- side menu -->
+    <color name="colorSideMenu">#2574c2</color>
+
+    <!-- Button Colors -->
+    <color name="colorBtnPrimary">#003366</color>
+    <color name="colorFacebookBtn">#495fb1</color>
+    <color name="colorYellowBtn">#fcb012</color>
+    <color name="colorLightBlueBtn">#2574c2</color>
 </resources>
