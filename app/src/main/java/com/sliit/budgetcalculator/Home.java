@@ -30,6 +30,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.sliit.budgetcalculator.Utils.IEDBHelper;
+import com.sliit.budgetcalculator.model.IncomeExpense;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,7 @@ public class Home extends AppCompatActivity
     private PieChart mChart;
     protected Typeface mTfRegular;
     protected Typeface mTfLight;
-
+    private IEDBHelper dbHelper;
     private TextView name;
     private TextView submission;
     private TextView recieved;
@@ -97,8 +99,15 @@ public class Home extends AppCompatActivity
         //get intent
         intent = getIntent();
 
+        //load data for chart
+        dbHelper = new IEDBHelper(this);
+        Float tincome = dbHelper.getTotalIncome();
+        Float texpense= dbHelper.getTotalExpense();
+        Float tprofit = tincome-texpense;
 
-        createChart(40,50);
+        //set field to this user data
+
+        createChart(tincome,texpense);
 
 
 
@@ -197,7 +206,7 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -214,9 +223,6 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
 
 
     private void setData(float income,float expense) {

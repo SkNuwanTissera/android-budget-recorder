@@ -8,6 +8,10 @@ public class IncomeExpense {
     private String ie_type;
     private Double amount;
 
+
+    private Float totalincome;
+    private Float totalexpense;
+
     public IncomeExpense() {
 
     }
@@ -67,5 +71,22 @@ public class IncomeExpense {
     public void setIe_type(String ie_type) {
         this.ie_type = ie_type;
     }
+
+    public Float getTotalincome() {
+        return totalincome;
+    }
+
+    public void setTotalincome(Float totalincome) {
+        this.totalincome = totalincome;
+    }
+
+    public Float getTotalexpense() {
+        return totalexpense;
+    }
+
+    public void setTotalexpense(Float totalexpense) {
+        this.totalexpense = totalexpense;
+    }
+
 
 }

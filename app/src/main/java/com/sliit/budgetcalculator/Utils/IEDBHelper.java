@@ -26,6 +26,8 @@ public class IEDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IE_DESP = "description";
     public static final String COLUMN_IE_DATE = "date";
     public static final String COLUMN_IE_TYPE = "type";
+    private static final String VALUE_INCOME ="income" ;
+    private static final String VALUE_EXPENSE = "expenses";
 
 
     public IEDBHelper(Context context) {
@@ -84,7 +86,6 @@ public class IEDBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 incomeExpense = new IncomeExpense();
-
                 incomeExpense.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
                 incomeExpense.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_IE_DESP)));
                 incomeExpense.setDate(cursor.getString(cursor.getColumnIndex(COLUMN_IE_DATE)));
@@ -92,8 +93,6 @@ public class IEDBHelper extends SQLiteOpenHelper {
                 incomeExpenseLinkedList.add(incomeExpense);
             } while (cursor.moveToNext());
         }
-
-
         return incomeExpenseLinkedList;
     }
 
@@ -134,6 +133,33 @@ public class IEDBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**for chart - get income**/
+    public Float getTotalIncome(){
+        int amount;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT sum(amount) FROM " + TABLE_NAME + "  WHERE type='"+ VALUE_INCOME+"'";
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst())
+            amount = c.getInt(0);
+        else
+            amount = -1;
+        c.close();
+        return Float.valueOf(amount);
+    }
+
+    /**for chart - get income**/
+    public Float getTotalExpense(){
+        int amount;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT sum(amount) as total FROM " + TABLE_NAME + "  WHERE type='"+ VALUE_EXPENSE+"'";
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst())
+            amount = c.getInt(0);
+        else
+            amount = -1;
+        c.close();
+        return Float.valueOf(amount);
+    }
 
 
 

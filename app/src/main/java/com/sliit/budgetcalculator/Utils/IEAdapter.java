@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sliit.budgetcalculator.model.IncomeExpense;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
         public TextView amountTxtV;
         public TextView descriptionTxtV;
         public TextView dateTxtV;
+        public ImageView imageView;
 
 
         public View layout;
@@ -43,6 +44,7 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
             amountTxtV = (TextView) v.findViewById(R.id.amount);
             descriptionTxtV = (TextView) v.findViewById(R.id.description);
             dateTxtV = (TextView) v.findViewById(R.id.dateadd);
+            imageView = (ImageView) v.findViewById(R.id.imageView2);
         }
     }
 
@@ -85,10 +87,20 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+
         final IncomeExpense incomeExpense = mIncomeExpense.get(position);
         holder.amountTxtV.setText("Amount: " + incomeExpense.getAmount());
         holder.descriptionTxtV.setText(incomeExpense.getDescription());
         holder.dateTxtV.setText(incomeExpense.getDate());
+        if(incomeExpense.getDescription().startsWith("income")){
+            holder.imageView.setImageResource(R.drawable.increased_revenue);
+        }
+        else{
+            holder.imageView.setImageResource(R.drawable.decresed_revenue);
+        }
+
+
+
 
         //listen to single view layout click
         holder.layout.setOnClickListener(new View.OnClickListener() {
