@@ -42,6 +42,8 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
         mDateEditText = (TextView) findViewById(R.id.dateadd);
         mAddBtn = (Button)findViewById(R.id.addNewUserButton);
 
+        mDateEditText.setText("Today");
+
         //listen to add button click
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override

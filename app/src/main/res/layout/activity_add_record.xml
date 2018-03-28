@@ -24,6 +24,7 @@
         android:ems="10"
         android:inputType="date"
         android:hint="Date"
+        android:textSize="25dp"
         android:layout_margin="3dp"/>
 
     <Button

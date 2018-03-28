@@ -283,7 +283,7 @@ public class Home extends AppCompatActivity
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("Project Progress\nchart Mitra CMS");
+        SpannableString s = new SpannableString("  \biFinance    \nIncome & Expense");
         s.subSequence(0,10);
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
