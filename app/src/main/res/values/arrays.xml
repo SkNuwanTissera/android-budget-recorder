@@ -7,4 +7,26 @@
         <item>Date</item>
         <item>Type</item>
     </string-array>
+
+    <string-array name="sortOptions">
+        <item></item>
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+    <string-array name="tagOptions">
+        <item>No Tags</item>
+        <item>Salary</item>
+        <item>Friends</item>
+        <item>Bank</item>
+        <item>Money</item>
+        <item>Daily</item>
+        <item>Household</item>
+        <item>Vehicle</item>
+        <item>Electronics</item>
+        <item>Fancy</item>
+        <item>Food</item>
+        <item>Furniture</item>
+    </string-array>
+
 </resources>

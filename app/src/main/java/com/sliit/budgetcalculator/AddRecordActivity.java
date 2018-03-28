@@ -2,15 +2,17 @@ package com.sliit.budgetcalculator;
 
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +21,13 @@ import com.sliit.budgetcalculator.Utils.IEDBHelper;
 import com.sliit.budgetcalculator.model.IncomeExpense;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class AddRecordActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+import me.gujun.android.taggroup.TagGroup;
+
+public class AddRecordActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
     private EditText mAmountEditText;
     private EditText mDespEditText;
@@ -31,16 +37,21 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
     private IEDBHelper dbHelper;
     private String ie_type;
 
+    private Spinner spinner;
+
+    private List<String> selectedTagList = new ArrayList<String>();;
+    private String[] tagsArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
 
         //init
-        mAmountEditText = (EditText)findViewById(R.id.Amount);
-        mDespEditText = (EditText)findViewById(R.id.Description);
+        mAmountEditText = (EditText) findViewById(R.id.Amount);
+        mDespEditText = (EditText) findViewById(R.id.Description);
         mDateEditText = (TextView) findViewById(R.id.dateadd);
-        mAddBtn = (Button)findViewById(R.id.addNewUserButton);
+        mAddBtn = (Button) findViewById(R.id.addNewUserButton);
 
         mDateEditText.setText("Today");
 
@@ -53,41 +64,62 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
             }
         });
 
+        loadTagsToDropDown();
+
         //change date button
         Button button = (Button) findViewById(R.id.buttonChangeDate);
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
+                datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
 
     }
 
-    private void savePerson(){
+    public void loadTagsToDropDown(){
+        spinner = (Spinner) findViewById(R.id.spinner);
+        tagsArray = getResources().getStringArray(R.array.tagOptions);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddRecordActivity.this,
+                android.R.layout.simple_spinner_item, tagsArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    public void loadTagToWindow() {
+
+        String[] selectedTagArray = selectedTagList.toArray(new String[selectedTagList.size()]);
+        TagGroup mTagGroup = (TagGroup) findViewById(R.id.tag_group);
+        mTagGroup.setTags(selectedTagArray);
+
+    }
+
+    private void savePerson() {
         String amount = mAmountEditText.getText().toString().trim();
         String desp = mDespEditText.getText().toString().trim();
         String date = mDateEditText.getText().toString().trim();
         dbHelper = new IEDBHelper(this);
 
-        if(amount.isEmpty()){
+        if (amount.isEmpty()) {
             //error name is empty
             Toast.makeText(this, "You must enter a amount", Toast.LENGTH_SHORT).show();
         }
 
-        if(desp.isEmpty()){
+        if (desp.isEmpty()) {
             //error name is empty
             Toast.makeText(this, "You must enter a description", Toast.LENGTH_SHORT).show();
         }
 
-        if(date.isEmpty()){
+        if (date.isEmpty()) {
             //error name is empty
             Toast.makeText(this, "You must enter a date", Toast.LENGTH_SHORT).show();
         }
 
         //create new incomeExpense
-        IncomeExpense incomeExpense = new IncomeExpense(desp,date,Double.parseDouble(amount),ie_type);
+        IncomeExpense incomeExpense = new IncomeExpense(desp, date, Double.parseDouble(amount), ie_type);
         dbHelper.saveNewIE(incomeExpense);
 
         //finally redirect back home
@@ -96,37 +128,53 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 
     }
 
-    private void goBackHome(){
+    private void goBackHome() {
         startActivity(new Intent(AddRecordActivity.this, MainActivity.class));
     }
 
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
-        mDespEditText = (EditText)findViewById(R.id.Description);
-        switch(view.getId()) {
+        mDespEditText = (EditText) findViewById(R.id.Description);
+        switch (view.getId()) {
             case R.id.incomeRadioBtn:
                 if (checked)
                     ie_type = "income";
-                    mDespEditText.setText(ie_type + " : ");
-                    break;
+                mDespEditText.setText(ie_type + " : ");
+                break;
             case R.id.expenseRadioBtn:
                 if (checked)
                     ie_type = "expenses";
-                    mDespEditText.setText(ie_type + " : ");
-                    break;
+                mDespEditText.setText(ie_type + " : ");
+                break;
         }
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR,year);
-        c.set(Calendar.MONTH,month);
-        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
 
         TextView textView = (TextView) findViewById(R.id.dateadd);
         textView.setText(currentDateString);
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+        selectedTagList.remove(selectedTagList);
+        loadTagToWindow();
+        String selectedItem = (String) parent.getSelectedItem();
+        selectedTagList.add(selectedItem);
+        loadTagToWindow();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+//        selectedTagList.remove(selectedTagList);
+//        loadTagToWindow();
     }
 }

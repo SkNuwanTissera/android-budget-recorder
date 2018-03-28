@@ -75,27 +75,6 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        // get menu from navigationView
-        Menu menu = navigationView.getMenu();
-
-        // find MenuItem you want to change
-        MenuItem nav_camara = menu.findItem(R.id.nav_camera);
-
-        // set new title to the MenuItem
-        nav_camara.setTitle("Income");
-        nav_camara.setIcon(R.drawable.ic_menu_send);
-
-        // do the same for other MenuItems
-        MenuItem nav_gallery = menu.findItem(R.id.nav_gallery);
-        nav_gallery.setTitle("Expense");
-        nav_gallery.setIcon(R.drawable.ic_menu_send);
-
-        MenuItem slideshow = menu.findItem(R.id.nav_slideshow);
-        slideshow.setTitle("Register");
-        slideshow.setIcon(R.drawable.ic_menu_send);
-
-        navigationView.setNavigationItemSelectedListener(this);
-
         //get intent
         intent = getIntent();
 
@@ -108,8 +87,6 @@ public class Home extends AppCompatActivity
         //set field to this user data
 
         createChart(tincome,texpense);
-
-
 
     }
 
@@ -204,20 +181,20 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//
+//        if (id == R.id.nav_camera) {
+//
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

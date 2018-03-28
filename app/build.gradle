@@ -31,5 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'me.gujun.android.taggroup:library:1.4@aar'
 }

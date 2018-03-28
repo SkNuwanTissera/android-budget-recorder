@@ -68,15 +68,20 @@ public class IEDBHelper extends SQLiteOpenHelper {
     }
 
     /**Query records, give options to filter results**/
-    public List<IncomeExpense> IElist(String filter) {
+    public List<IncomeExpense> IElist(String filter, String Sort) {
         String query;
-        if(filter.equals("")){
+        if(filter.equals("")) {
             //regular query
             query = "SELECT  * FROM " + TABLE_NAME;
-        }else{
+        }
+        else if(Sort.equals("Descending")){
             //filter results by filter option provided
+            query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY "+ filter + " DESC";
+        }
+        else{
             query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY "+ filter;
         }
+
 
         List<IncomeExpense> incomeExpenseLinkedList = new LinkedList<>();
         SQLiteDatabase db = this.getWritableDatabase();

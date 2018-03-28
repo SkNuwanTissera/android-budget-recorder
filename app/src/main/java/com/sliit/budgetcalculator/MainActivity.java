@@ -2,6 +2,7 @@ package com.sliit.budgetcalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private IEDBHelper dbHelper;
     private IEAdapter adapter;
     private String filter = "";
+    private String sort = "desc";
 
 
     @Override
@@ -39,15 +41,51 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //populateSortSpinner();
         //populate recyclerview
-        populaterecyclerView(filter);
+        populaterecyclerView(filter,sort);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMove);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Home.class));
+            }
+        });
 
 
     }
 
-    private void populaterecyclerView(String filter){
+//    private void populateSortSpinner() {
+//        String[] data= {"Ascending","Descending"};
+//        Spinner sortspinner = (Spinner) findViewById(R.id.sortSpinner);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,data);
+//
+//        sortspinner.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+//
+//        final ArrayAdapter<CharSequence> sortadapter = ArrayAdapter.createFromResource(this,
+//                R.array.sortOptions, android.R.layout.simple_spinner_item);
+//        sortadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        sortspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                sort = adapterView.getSelectedItem().toString();
+//                populaterecyclerView(filter,sort);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                populaterecyclerView(filter,sort);
+//            }
+//        });
+//
+//
+//    }
+
+    private void populaterecyclerView(String filter,String sort){
         dbHelper = new IEDBHelper(this);
-        adapter = new IEAdapter(dbHelper.IElist(filter), this, mRecyclerView);
+        adapter = new IEAdapter(dbHelper.IElist(filter,sort), this, mRecyclerView);
         mRecyclerView.setAdapter(adapter);
 
     }
@@ -59,25 +97,22 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem item = menu.findItem(R.id.filterSpinner);
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.filterOptions, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String filter = parent.getSelectedItem().toString();
-                populaterecyclerView(filter);
+                populaterecyclerView(filter,sort);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                populaterecyclerView(filter);
+                populaterecyclerView(filter,sort);
             }
         });
-
 
         spinner.setAdapter(adapter);
         return true;
