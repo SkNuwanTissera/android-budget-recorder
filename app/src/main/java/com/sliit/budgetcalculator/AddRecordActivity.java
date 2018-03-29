@@ -164,8 +164,9 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-        selectedTagList.remove(selectedTagList);
-        loadTagToWindow();
+//        if(selectedTagList.size()==1){
+//            selectedTagList.remove(0);
+//        }
         String selectedItem = (String) parent.getSelectedItem();
         selectedTagList.add(selectedItem);
         loadTagToWindow();

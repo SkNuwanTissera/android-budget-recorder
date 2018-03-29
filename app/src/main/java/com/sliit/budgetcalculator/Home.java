@@ -243,11 +243,11 @@ public class Home extends AppCompatActivity
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
+        dataSet.setSelectionShift(5f);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
+        data.setValueTextSize(20f);
         data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(mTfLight);
         mChart.setData(data);
