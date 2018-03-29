@@ -173,6 +173,8 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent stsActivity = new Intent(this,StatisticActivity.class);
+            this.startActivity(stsActivity);
             return true;
         }
 
@@ -192,7 +194,7 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.profits_icon) {
 
         } else if (id == R.id.charts_icon) {
-            Intent chartsActivity = new Intent(this,ChartsActivity.class);
+            Intent chartsActivity = new Intent(this,MainActivity.class);
             this.startActivity(chartsActivity);
             return true;
         } else if (id == R.id.archive_my_data_icon){
