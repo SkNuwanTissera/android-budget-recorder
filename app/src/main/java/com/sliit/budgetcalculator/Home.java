@@ -1,5 +1,6 @@
 package com.sliit.budgetcalculator;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -34,6 +35,8 @@ import com.sliit.budgetcalculator.Utils.IEDBHelper;
 import com.sliit.budgetcalculator.model.IncomeExpense;
 
 import java.util.ArrayList;
+
+import static android.app.PendingIntent.getActivity;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -181,24 +184,25 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        if (id == R.id.income_icon) {
+
+        } else if (id == R.id.expenses_icon) {
+
+        } else if (id == R.id.profits_icon) {
+
+        } else if (id == R.id.charts_icon) {
+            Intent chartsActivity = new Intent(this,ChartsActivity.class);
+            this.startActivity(chartsActivity);
+            return true;
+        } else if (id == R.id.archive_my_data_icon){
+
+        }
+
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+        return super.onOptionsItemSelected(item);
     }
 
 

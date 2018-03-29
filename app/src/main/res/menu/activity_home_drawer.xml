@@ -9,11 +9,11 @@
             android:icon="@drawable/increased_revenue"
             android:title="Income" />
         <item
-            android:id="@+id/expenses"
+            android:id="@+id/expenses_icon"
             android:icon="@drawable/decresed_revenue"
             android:title="Expenses" />
         <item
-            android:id="@+id/profits"
+            android:id="@+id/profits_icon"
             android:icon="@drawable/profits"
             android:title="Profits" />
 
@@ -22,11 +22,11 @@
     <item android:title="Statistics">
         <menu>
             <item
-                android:id="@+id/charts"
+                android:id="@+id/charts_icon"
                 android:icon="@drawable/statistics"
                 android:title="Statistics" />
             <item
-                android:id="@+id/archive_my_data"
+                android:id="@+id/archive_my_data_icon"
                 android:icon="@drawable/data_archive"
                 android:title="Save My Data" />
         </menu>
