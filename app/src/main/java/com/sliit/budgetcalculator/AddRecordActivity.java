@@ -85,10 +85,10 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
             tagsArray = getResources().getStringArray(R.array.incomeTagOptions);
         }
         else{
-            tagsArray = getResources().getStringArray(R.array.expensetagOptions);
+            tagsArray = getResources().getStringArray(R.array.expenseTagOptions);
         }
 
-        tagsArray.
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddRecordActivity.this,
                 android.R.layout.simple_spinner_item, tagsArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -189,8 +189,12 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 //            selectedTagList.remove(0);
 //        }
         String selectedItem = (String) parent.getSelectedItem();
-        selectedTagList.add(selectedItem);
-        loadTagToWindow();
+        if(selectedItem.equals("No Tags")){}
+        else{
+            selectedTagList.add(selectedItem);
+            loadTagToWindow();
+        }
+
 
     }
 

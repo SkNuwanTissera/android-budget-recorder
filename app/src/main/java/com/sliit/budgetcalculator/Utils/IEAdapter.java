@@ -92,7 +92,7 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
         holder.amountTxtV.setText("Amount: " + incomeExpense.getAmount());
         holder.descriptionTxtV.setText(incomeExpense.getDescription());
         holder.dateTxtV.setText(incomeExpense.getDate());
-        if(incomeExpense.getDescription().startsWith("income")){
+        if(incomeExpense.getDescription().startsWith("INCOME")){
             holder.imageView.setImageResource(R.drawable.increased_revenue);
         }
         else{
