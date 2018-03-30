@@ -190,13 +190,13 @@ public class Home extends AppCompatActivity
         if (id == R.id.income_icon) {
 
         } else if (id == R.id.expenses_icon) {
-
-        } else if (id == R.id.profits_icon) {
-
-        } else if (id == R.id.charts_icon) {
             Intent chartsActivity = new Intent(this,MainActivity.class);
             this.startActivity(chartsActivity);
             return true;
+        } else if (id == R.id.profits_icon) {
+
+        } else if (id == R.id.charts_icon) {
+
         } else if (id == R.id.archive_my_data_icon){
 
         }

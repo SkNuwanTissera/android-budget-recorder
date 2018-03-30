@@ -21,8 +21,10 @@ import com.sliit.budgetcalculator.Utils.IEDBHelper;
 import com.sliit.budgetcalculator.model.IncomeExpense;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import me.gujun.android.taggroup.TagGroup;
@@ -35,7 +37,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
     private Button mAddBtn;
 
     private IEDBHelper dbHelper;
-    private String ie_type;
+    private String ie_type="";
 
     private Spinner spinner;
 
@@ -60,11 +62,9 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
             @Override
             public void onClick(View view) {
                 //call the save person method
-                savePerson();
+                saveIncomeOrExpense();
             }
         });
-
-        loadTagsToDropDown();
 
         //change date button
         Button button = (Button) findViewById(R.id.buttonChangeDate);
@@ -80,10 +80,17 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 
     public void loadTagsToDropDown(){
         spinner = (Spinner) findViewById(R.id.spinner);
-        tagsArray = getResources().getStringArray(R.array.tagOptions);
+
+        if(ie_type.equals("income")){
+            tagsArray = getResources().getStringArray(R.array.incomeTagOptions);
+        }
+        else{
+            tagsArray = getResources().getStringArray(R.array.expensetagOptions);
+        }
+
+        tagsArray.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddRecordActivity.this,
                 android.R.layout.simple_spinner_item, tagsArray);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -97,34 +104,45 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 
     }
 
-    private void savePerson() {
+    private void saveIncomeOrExpense() {
         String amount = mAmountEditText.getText().toString().trim();
         String desp = mDespEditText.getText().toString().trim();
         String date = mDateEditText.getText().toString().trim();
+
+        //checking if its "Today"
+        if(date.equals("Today")){
+            Calendar c = Calendar.getInstance();
+            String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+            date = currentDateString;
+        }
+
         dbHelper = new IEDBHelper(this);
 
         if (amount.isEmpty()) {
-            //error name is empty
+
             Toast.makeText(this, "You must enter a amount", Toast.LENGTH_SHORT).show();
         }
 
-        if (desp.isEmpty()) {
-            //error name is empty
+        else if (desp.isEmpty()) {
+
             Toast.makeText(this, "You must enter a description", Toast.LENGTH_SHORT).show();
         }
 
-        if (date.isEmpty()) {
-            //error name is empty
-            Toast.makeText(this, "You must enter a date", Toast.LENGTH_SHORT).show();
+        else if (ie_type.equals("")) {
+
+            Toast.makeText(this, "You must enter a type", Toast.LENGTH_SHORT).show();
         }
 
-        //create new incomeExpense
-        IncomeExpense incomeExpense = new IncomeExpense(desp, date, Double.parseDouble(amount), ie_type);
-        dbHelper.saveNewIE(incomeExpense);
+        else{
+            //create new incomeExpense
+            IncomeExpense incomeExpense = new IncomeExpense(desp, date, Double.parseDouble(amount), ie_type);
+            dbHelper.saveNewIE(incomeExpense);
 
-        //finally redirect back home
-        // NOTE you can implement an sqlite callback then redirect on success delete
-        goBackHome();
+            //finally redirect back home
+            // NOTE you can implement an sqlite callback then redirect on success delete
+            goBackHome();
+        }
+
 
     }
 
@@ -139,14 +157,17 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
             case R.id.incomeRadioBtn:
                 if (checked)
                     ie_type = "income";
-                mDespEditText.setText(ie_type + " : ");
+                mDespEditText.setText(ie_type.toUpperCase() + " : ");
+                loadTagsToDropDown();
                 break;
             case R.id.expenseRadioBtn:
                 if (checked)
                     ie_type = "expenses";
-                mDespEditText.setText(ie_type + " : ");
+                mDespEditText.setText(ie_type.toUpperCase() + " : ");
+                loadTagsToDropDown();
                 break;
         }
+
     }
 
     @Override

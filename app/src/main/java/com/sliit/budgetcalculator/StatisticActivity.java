@@ -1,5 +1,6 @@
 package com.sliit.budgetcalculator;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class StatisticActivity extends AppCompatActivity {
     private TextView tvX, tvY;
     protected Typeface mTfLight;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +37,10 @@ public class StatisticActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_statistic);
 
-        tvX = (TextView) findViewById(R.id.tvXMax);
-        tvY = (TextView) findViewById(R.id.tvYMax);
-
-        mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
-        mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
-
-        mSeekBarX.setProgress(45);
-        mSeekBarY.setProgress(100);
 
         mChart = (LineChart) findViewById(R.id.chart1);
         mChart.setViewPortOffsets(0, 0, 0, 0);
-        mChart.setBackgroundColor(Color.rgb(104, 241, 175));
+        mChart.setBackgroundColor(R.color.colorBackground);
 
         // no description text
         mChart.getDescription().setEnabled(false);
