@@ -8,6 +8,7 @@
     tools:context="com.sliit.budgetcalculator.Home"
     tools:showIn="@layout/app_bar_home">
 
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart1"
             android:paddingTop="10dp"

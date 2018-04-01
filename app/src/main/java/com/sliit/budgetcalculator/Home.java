@@ -7,10 +7,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.text.Layout;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -61,7 +65,6 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,10 +73,10 @@ public class Home extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawerNavigation = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, drawerNavigation, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerNavigation.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -173,7 +176,7 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent stsActivity = new Intent(this,StatisticActivity.class);
+            Intent stsActivity = new Intent(this,SettingsActivity.class);
             this.startActivity(stsActivity);
             return true;
         }
@@ -181,30 +184,29 @@ public class Home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        DrawerLayout drawerNavigation = (DrawerLayout) findViewById(R.id.drawer_layout);
+        int id = menuItem.getItemId();
+        menuItem.setChecked(true);
+        drawerNavigation.closeDrawers();
 
         if (id == R.id.income_icon) {
-
+            // Handle the home action
+            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.expenses_icon) {
-            Intent chartsActivity = new Intent(this,MainActivity.class);
-            this.startActivity(chartsActivity);
-            return true;
+            Toast.makeText(this, "The Wetlands", Toast.LENGTH_SHORT).show();
+//            TheWetlandsFragment theWetlandsFragment = new TheWetlandsFragment();
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, theWetlandsFragment, theWetlandsFragment.getTag()).commit();
         } else if (id == R.id.profits_icon) {
-
-        } else if (id == R.id.charts_icon) {
-
-        } else if (id == R.id.archive_my_data_icon){
-
+            Toast.makeText(this, "The Mistbelt Forests", Toast.LENGTH_SHORT).show();
         }
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-        return super.onOptionsItemSelected(item);
+        drawerNavigation.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 
@@ -275,6 +277,20 @@ public class Home extends AppCompatActivity
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
         return s;
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        DrawerLayout drawersNav = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        menuItem.setChecked(true);
+                        drawersNav.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
 
